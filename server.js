@@ -2,6 +2,15 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
+// Route files
+const authRoutes = require("./routes/auth");
+// const productRoutes = require('./routes/product');
+// const orderRoutes = require('./routes/order');
+const userRoutes = require("./routes/user");
+// const couponRoutes = require('./routes/coupon');
+
+// Middleware
+const authMiddleware = require("./middleware/auth");
 
 dotenv.config();
 const app = express();
@@ -22,6 +31,16 @@ app.use(express.json());
 // app.use("/api/users", require("./routes/user"));
 // app.use("/api/coupons", require("./routes/coupon"));
 
+// Public Routes
+app.use("/api/auth", authRoutes);
+
+// Protected Routes (using middleware)
+app.use("/api/users", authMiddleware, userRoutes);
+// app.use('/api/products', productRoutes); // Can add admin protection per route
+// app.use('/api/orders', authMiddleware, orderRoutes);
+// app.use('/api/coupons', authMiddleware, couponRoutes);
+
+//router.post("/create", authMiddleware, adminMiddleware, createCoupon);
 const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
   res.send(`Running on port ${PORT}`);
