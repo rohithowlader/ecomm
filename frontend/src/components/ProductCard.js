@@ -4,7 +4,10 @@ const ProductCard = ({ product }) => {
   return (
     <div className="card h-100">
       <img
-        src={product.image || "https://via.placeholder.com/150"}
+        src={
+          `http://localhost:5000${product.image}` ||
+          "https://via.placeholder.com/150"
+        }
         className="card-img-top"
         alt={product.name}
         style={{ height: "200px", objectFit: "cover" }}

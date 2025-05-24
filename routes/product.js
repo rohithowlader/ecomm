@@ -9,16 +9,16 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 
-const authMiddleware = require("../middleware/auth");
-const adminMiddleware = require("../middleware/admin");
-
-// Public routes
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+const upload = require("../middleware/upload");
+// Public
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
 
-// Admin routes
-router.post("/", authMiddleware, adminMiddleware, createProduct);
-router.put("/:id", authMiddleware, adminMiddleware, updateProduct);
-router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);
+// Admin protected
+router.post("/", auth, admin, upload.single("image"), createProduct);
+router.put("/:id", auth, admin, updateProduct);
+router.delete("/:id", auth, admin, deleteProduct);
 
 module.exports = router;
