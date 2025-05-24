@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 const ProductCard = ({ product }) => {
   return (
     <div className="card h-100">
@@ -18,7 +18,9 @@ const ProductCard = ({ product }) => {
         <p className="card-text small">
           {product.description?.slice(0, 60)}...
         </p>
-        <button className="btn btn-sm btn-primary mt-auto">Add to Cart</button>
+        <Link to={`/product/${product._id}`} className="text-decoration-none">
+          View Details
+        </Link>
       </div>
     </div>
   );

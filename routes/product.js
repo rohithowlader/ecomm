@@ -18,7 +18,7 @@ router.get("/:id", getProductById);
 
 // Admin protected
 router.post("/", auth, admin, upload.single("image"), createProduct);
-router.put("/:id", auth, admin, updateProduct);
+router.put("/:id", auth, admin, upload.single("image"), updateProduct);
 router.delete("/:id", auth, admin, deleteProduct);
 
 module.exports = router;

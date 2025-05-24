@@ -43,11 +43,31 @@ exports.createProduct = async (req, res) => {
 };
 
 // PUT /api/products/:id (admin only)
+// PUT /api/products/:id (admin only)
 exports.updateProduct = async (req, res) => {
   try {
-    const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const { name, description, price, stock, category } = req.body;
+
+    const updatedData = {
+      name,
+      description,
+      price,
+      stock,
+      category,
+    };
+
+    if (req.file) {
+      updatedData.image = `/uploads/${req.file.filename}`;
+    }
+
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      {
+        new: true,
+      }
+    );
+
     res.json(updated);
   } catch (err) {
     res.status(400).json({ message: "Failed to update product" });

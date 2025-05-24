@@ -9,6 +9,7 @@ const productRoutes = require("./routes/product");
 // const orderRoutes = require('./routes/order');
 const userRoutes = require("./routes/user");
 // const couponRoutes = require('./routes/coupon');
+const cartRoutes = require("./routes/cartRoutes");
 
 // Middleware
 const authMiddleware = require("./middleware/auth");
@@ -38,6 +39,7 @@ app.use("/api/auth", authRoutes);
 // Protected Routes (using middleware)
 app.use("/api/users", authMiddleware, userRoutes);
 app.use("/api/products", productRoutes); // Can add admin protection per route
+app.use("/api/cart", cartRoutes);
 // app.use('/api/orders', authMiddleware, orderRoutes);
 // app.use('/api/coupons', authMiddleware, couponRoutes);
 
